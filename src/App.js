@@ -8,19 +8,24 @@ import apps from './apps.json'
 import './App.css'
 
 class App extends Component {
-  state = {
-    apps,
-    message: '',
-    openedApps: [],
-    score: 0,
-    topScore: 0
+  constructor (props) {
+    super (props)
+    this.state = {
+      apps,
+      message: '',
+      openedApps: [],
+      score: 0,
+      showDialog: false,
+      topScore: 0
+    }
+    this.hideOverlay = this.hideOverlay.bind(this)
   }
-  
+
   // Based on the Fisher-Yates shuffle algorithm
   // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
   shuffleApps = appArray => {
     let currentIndex = appArray.length, temporaryValue, randomIndex
-    while (0 !== currentIndex) {
+    while (currentIndex !== 0) {
       randomIndex = Math.floor(Math.random() * currentIndex)
       currentIndex -= 1
       temporaryValue = appArray[currentIndex]
@@ -36,19 +41,35 @@ class App extends Component {
     this.setState({ apps: this.shuffleApps(apps) })
     if (this.state.openedApps.includes(id)) {
       this.setState({
-        message: 'Game Over. Open another app to restart.',
+        message: 'Click OK to start over.',
         openedApps: [],
-        score: 0
+        score: 0,
+        showDialog: true
       })
     } else {
       this.setState({
         message: '',
         openedApps: this.state.openedApps.concat([id]),
-        score: this.state.score + 1
+        score: this.state.score + 1,
+        showDialog: false
       })
     }
     if (this.state.score > this.state.topScore) this.setState({ topScore: this.state.score })
-    if (this.state.score === apps.length-1) this.setState({ message: 'WoW! You opened all the apps!' })
+    if (this.state.score === apps.length - 1) {
+      this.setState({
+        message: 'Wow! You have really good memory!',
+        showDialog: true,
+        topScore: apps.length
+      })
+    }
+  }
+
+  hideOverlay = () => {
+    this.setState({
+      openedApps: [],
+      showDialog: false,
+      score: 0
+    })
   }
 
   render () {
@@ -69,7 +90,7 @@ class App extends Component {
             />
           )}
         </Main>
-        <Dialog message={this.state.message} />
+        { this.state.showDialog ? <Dialog message={this.state.message} hideOverlay={this.hideOverlay} /> : null }
         <Footer />
       </div>
     )
