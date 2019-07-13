@@ -1,0 +1,4 @@
+.app-icon {
+  mask-image: url('/images/ios-mask.svg');
+  mask-size: cover;
+}
