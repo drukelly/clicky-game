@@ -6,6 +6,7 @@ class Dialog extends Component {
   constructor (props) {
     super(props)
   }
+  
   // https://stackoverflow.com/a/42221480
   render () {
     return (
