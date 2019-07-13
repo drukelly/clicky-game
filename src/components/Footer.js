@@ -7,7 +7,7 @@ const Footer = () => {
         <a href='https://www.drukelly.com' className='link light-blue'>John Kelly</a>
       </div>
       <div className='ml-auto ph2'>
-        <a href='https://www.github.com/drukelly/click-game' className='link light-blue'>Github Repo</a>
+        <a href='https://www.github.com/drukelly/clicky-game' className='link light-blue'>Github Repo</a>
       </div>
     </footer>
   )

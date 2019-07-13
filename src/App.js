@@ -2,11 +2,10 @@ import React from 'react'
 import Header from './components/Header'
 import Main from './components/Main'
 import Footer from './components/Footer'
-import './App.css'
 
-function App () {
+const App = () => {
   return (
-    <div className='site b bg-black-50 sans-serif white-80'>
+    <div className='b bg-black-50 flex flex-column min-vh-100 sans-serif white-80'>
       <Header />
       <Main />
       <Footer />
