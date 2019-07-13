@@ -9,7 +9,18 @@ import './App.css'
 class App extends Component {
   state = {
     apps,
-    score: 0
+    message: '',
+    openedApps: [],
+    score: 0,
+    topScore: 0
+  }
+
+  shuffleApps = appArray => {
+    return appArray
+  }
+
+  openApp = id => {
+    this.setState({ apps: this.shuffleApps(apps) })
   }
 
   render () {
