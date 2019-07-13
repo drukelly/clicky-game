@@ -14,8 +14,20 @@ class App extends Component {
     score: 0,
     topScore: 0
   }
-
+  
+  // Based on the Fisher-Yates shuffle algorithm
+  // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
   shuffleApps = appArray => {
+    let currentIndex = appArray.length, temporaryValue, randomIndex
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex -= 1
+      temporaryValue = appArray[currentIndex]
+      appArray[currentIndex] = appArray[randomIndex]
+      appArray[randomIndex] = temporaryValue
+    }
+    // Need to convert output into an actual array
+    Array.from(appArray)
     return appArray
   }
 
@@ -29,7 +41,12 @@ class App extends Component {
         <Header />
         <Main>
           {this.state.apps.map(app => 
-            <AppIcon name={app.name} image={app.image} key={app.id} />
+            <AppIcon
+              openApp={this.openApp}
+              image={app.image}
+              key={app.id}
+              name={app.name}
+            />
           )}
         </Main>
         <Footer />
